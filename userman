@@ -1,0 +1,27 @@
+#!/bin/sh
+user=false
+getent passwd "$2" >/dev/null 2>&1 && user=true
+
+if ! $user; then
+  echo "Not a user"
+  exit 1
+fi
+
+case "$1" in
+  username)
+    id -u "$2"
+  ;;
+  groupid)
+    id -g -n "$2"
+  ;;
+  comment)
+    getent passwd "$2"
+  ;;
+  home)
+    getent passwd "$2" | cut -d: -f6
+  ;; 
+  shell)
+    getent passwd "$2" | cut -d: -f7
+  ;;
+
+esac

@@ -1,0 +1,237 @@
+#!/bin/bash
+
+BASIC=/home/Athaman/Dev/Scripts/basic
+ADVANCED=/home/Athaman/Dev/Scripts/avanced
+USERMAN=/home/Athaman/Dev/Scripts/userman
+
+QUIT=0
+
+menu()
+{
+	clear
+	echo ""
+	echo "###########################################"
+	echo "# Welcome to System Manager"
+	echo "# -------------------------"
+	echo "# "
+	echo "# Please select a menu item:"
+	echo "# 1) basic menu options"
+	echo "# 2) advanced menu options"
+	echo "# 3) passwd file options"
+	echo "# 4) quit"
+	echo "# "
+	echo "# Please enter a choice: "
+	echo "###########################################"
+
+	while [[ "$QUIT" -eq "0" ]] ; do
+		read CHOICE
+		case $CHOICE in
+			1)
+				basic
+			;;
+			2)
+				advanced
+			;;
+			3)
+				userman
+			;;
+			4)
+				QUIT=1
+			;;
+			[Qq])
+				QUIT=1
+			;;
+			?)
+				echo "That is an invalid option"
+		esac
+		menu
+	done
+	return
+}
+
+basic()
+{
+	clear
+	echo ""
+	echo "###########################################"
+	echo "# Basic Tasks Menu"
+	echo "# --------------------------"
+	echo "# "
+	echo "# 1) Show free memory"
+	echo "# 2) Show free disk space"
+	echo "# 3) Show disk quota"
+	echo "# 4) Show the groups I am a member of"
+	echo "# 5) Show the history of commands for bash"
+	echo "# 6) Quit this menu"
+	echo "# "
+	echo "# Please enter an option: "
+echo "###########################################"
+	read CHOICE
+	case $CHOICE in
+		1)
+			./basic freemem
+			echo ""
+			echo "Press enter to continue"
+			read CONTINUE
+		;;
+		2)
+			./basic diskfree
+			echo ""
+			echo "Press enter to continue"
+			read CONTINUE
+		;;
+		3)
+			./basic quota
+			echo ""
+			echo "Press enter to continue"
+			read CONTINUE
+		;;
+		4)
+			./basic groups
+			echo ""
+			echo "Press enter to continue"
+			read CONTINUE
+		;;
+		5)
+			./basic history
+			echo ""
+			echo "Press enter to continue"
+			read CONTINUE
+		;;
+		6)
+		;;
+		?)
+			echo "Not a valid option"
+			echo ""
+			echo "Press enter to continue"
+			read CONTINUE
+		;;
+	esac
+}
+
+advanced()
+{
+clear
+echo ""
+echo "###########################################"
+echo "# Advanced Tasks Menu"
+echo "# --------------------------"
+echo "# "
+echo "# 1) Print the number of CPUs available on the system"
+echo "# 2) Print the maximum number of open files allowed per user"
+echo "# 3) Backup all files that match a criterion"
+echo "# 4) Quit this menu"
+echo "# "
+echo "# Please enter an option: "
+echo "###########################################"
+
+read CHOICE
+case $CHOICE in
+	1)
+		./advanced -p
+		echo ""
+		echo "Press enter to continue"
+		read CONTINUE
+	;;
+	2)
+		./advanced -o
+		echo ""
+		echo "Press enter to continue"
+		read CONTINUE
+	;;
+	3)
+		echo "Please enter a wildcard: "
+		read WILDCARD
+		echo "Please enter a destination: "
+		read DESTINATION
+		./advanced -b $WILDCARD $DESTINATION
+		echo ""
+		echo "Press enter to continue"
+		read CONTINUE
+	;;
+	4)
+	;;
+	?)
+		echo "Not a valid option"
+		echo "Press enter to continue"
+		echo ""
+		read CONTINUE
+	;;
+esac
+
+}
+
+userman()
+{
+clear
+echo ""
+echo "###########################################"
+echo "# Passwd Tasks Menu"
+echo "# --------------------------"
+echo "# "
+echo "# 1) Print the userid of a sepcified user"
+echo "# 2) Print the groupid of a sepcified user"
+echo "# 3) Print the comment field of a specified user"
+echo "# 4) Print the home directory of a specified user"
+echo "# 5) Print the home directory of a specified user"
+echo "# 6) Quit this menu"
+echo "# "
+echo "# Please enter an option: "
+echo "###########################################"
+
+read CHOICE
+case $CHOICE in
+	1)
+		echo "Please enter a user: "
+		read USER
+		./userman userid $USER
+		echo ""
+		echo "Press enter to continue"
+		read CONTINUE
+	;;
+	2)
+		echo "Please enter a user: "
+		read USER
+		./userman groupid $USER
+		echo ""
+		echo "Press enter to continue"
+		read CONTINUE
+	;;
+	3)
+		echo "Please enter a user: "
+		read USER
+		./userman comment $USER
+		echo ""
+		echo "Press enter to continue"
+		read CONTINUE
+	;;
+	4)
+		echo "Please enter a user: "
+		read USER
+		./userman home $USER
+		echo ""
+		echo "Press enter to continue"
+		read CONTINUE
+	;;
+	5)
+		echo "Please enter a user: "
+		read USER
+		./userman shell $USER
+		echo ""
+		echo "Press enter to continue"
+		read CONTINUE
+	;;
+	6)
+	;;
+	?)
+		echo "Not a valid option"
+		echo ""
+		echo "Press enter to continue"
+		read CONTINUE
+	;;
+esac
+
+
+}
+QUIT=0
+menu

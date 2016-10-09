@@ -1,0 +1,24 @@
+#!/bin/bash
+while getopts ":pob" opt; do
+  case $opt in
+    p)
+    less /proc/cpuinfo
+    ;;
+
+    o)
+    cat /proc/sys/fs/file-max
+    ;;
+
+    b)
+    if [ -d "$3" ]; then
+      mv "$2" "$3"
+    else
+      mkdir "$3"
+      mv "$2" "$3"
+    fi
+    ;;
+
+    \?)
+    echo "invalid options: -&opt">&2
+  esac
+done

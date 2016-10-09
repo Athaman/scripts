@@ -1,0 +1,22 @@
+#!/bin/sh
+
+case $1 in
+  "freemem")
+    free -m
+    ;;
+  "diskfree")
+    df -h
+    ;;
+  "quota")
+    quota
+    ;;
+  "groups")
+    groups
+    ;;
+  "history")
+    history | more
+    ;;
+  *)
+    echo "default"
+    ;;
+esac
