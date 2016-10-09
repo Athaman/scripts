@@ -8,7 +8,7 @@ if ! $user; then
 fi
 
 case "$1" in
-  username)
+  userid)
     id -u "$2"
   ;;
   groupid)
@@ -19,9 +19,12 @@ case "$1" in
   ;;
   home)
     getent passwd "$2" | cut -d: -f6
-  ;; 
+  ;;
   shell)
     getent passwd "$2" | cut -d: -f7
+  ;;
+  ?)
+    echo "Not a valid argument"
   ;;
 
 esac
